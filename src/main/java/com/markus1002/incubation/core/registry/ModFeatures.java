@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModFeatures
 {
-	public static final Feature<NoFeatureConfig> CHICKEN_NEST = new ChickenNestFeature(NoFeatureConfig.field_236558_a_);
+	public static final Feature<NoFeatureConfig> CHICKEN_NEST = new ChickenNestFeature(NoFeatureConfig.CODEC);
 
 	public static void registerFeatures(RegistryEvent.Register<Feature<?>> event)
 	{
@@ -55,13 +55,13 @@ public class ModFeatures
 	}
 
 	private static Supplier<ConfiguredFeature<?,?>> configuredFeatureSupplier(Feature<NoFeatureConfig> feature) {
-		return () -> feature.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.field_242898_b.configure(new ChanceConfig(32)));
+		return () -> feature.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.CHANCE.configure(new ChanceConfig(32)));
 	}
 
 	private static boolean doesCreatureSpawnInBiome(EntityType<?> entityType, MobSpawnInfoBuilder spawns)
 	{
 		for (MobSpawnInfo.Spawners spawner : spawns.getSpawner(EntityClassification.CREATURE)) {
-			if (spawner.field_242588_c == entityType) {
+			if (spawner.type == entityType) {
 				return true;
 			}
 		}
